@@ -1,0 +1,93 @@
+[gd_scene load_steps=2 format=3 uid="uid://fiil51ojq3o8"]
+
+[ext_resource type="Script" uid="uid://b6bhe87klu3r" path="res://assets/scenes/title_screen.gd" id="1_j8fbj"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j8fbj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.421875
+anchor_top = 0.45524693
+anchor_right = 0.578125
+anchor_bottom = 0.5447531
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Bachelor Thesis Project"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VersionLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Checking version..."
+horizontal_alignment = 1
+
+[node name="ExpButton" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Export Player Data"
+
+[node name="SendButton" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Send Player Data"
+
+[node name="StartBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="Disclaimer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Disclaimer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4826389
+anchor_top = 0.4691358
+anchor_right = 0.5173611
+anchor_bottom = 0.5308642
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Disclaimer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Note"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="Disclaimer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "When you finish/quit the game, your gameplay data will be sent to the developer for statistical analysis.
+This data is completely anonymous and only includes gameplay stats."
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="AcceptButton" type="Button" parent="Disclaimer/VBoxContainer"]
+layout_mode = 2
+text = "I accept"
+
+[connection signal="pressed" from="VBoxContainer/ExpButton" to="." method="_on_exp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SendButton" to="." method="_on_send_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="pressed" from="Disclaimer/VBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]

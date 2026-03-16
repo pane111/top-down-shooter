@@ -1,0 +1,66 @@
+extends CharacterBody2D
+
+@export var max_hp=3.0
+@export var move_speed=120.0
+@export var bullet_speed=200.0
+@export var sust_dist=100.0
+@export var sway=0.0
+@export var bullet: PackedScene
+var player
+var can_shoot=true
+var can_move=true
+var rng = RandomNumberGenerator.new()
+
+func _physics_process(delta: float) -> void:
+	if player==null:return
+	
+	var pdir = player.global_position - global_position
+	var pdist = pdir.length()
+	if pdist == null:
+		return
+	if can_move:
+		if pdist > sust_dist:
+			velocity = pdir.normalized()*move_speed
+			$Pivot/Legs.animation="move"
+		elif pdist < sust_dist*0.8:
+			velocity = -pdir.normalized()*move_speed
+			$Pivot/Legs.animation="move"
+		else:
+			velocity = Vector2.ZERO
+			$Pivot/Legs.animation="idle"
+			if can_shoot:
+				await get_tree().process_frame
+				shoot()
+		$Pivot.look_at(player.global_position)
+	else:
+		velocity = Vector2.ZERO
+	
+	
+	
+	move_and_slide()
+
+
+
+
+func shoot():
+	
+	velocity = Vector2.ZERO
+	can_shoot=false
+	can_move=false
+	$Pivot/Torso.animation="shoot"
+	var rndsway = rng.randf_range(-sway,sway)
+	await get_tree().process_frame
+	var newb = bullet.instantiate()
+	add_sibling(newb)
+	newb.global_position = global_position
+	newb.global_rotation = $Pivot.global_rotation + deg_to_rad(rndsway)
+	newb.linear_velocity = Vector2.from_angle(newb.global_rotation).normalized() * bullet_speed
+	$ShotCd.start()
+	await $Pivot/Torso.animation_looped
+	$Pivot/Torso.animation="idle"
+	await $ShotCd.timeout
+	can_shoot=true
+	can_move=true
+
+func _on_detection_circle_body_entered(body: Node2D) -> void:
+	player = body

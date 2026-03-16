@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn6fnd18851k2"]
+
+[ext_resource type="Script" uid="uid://d3jy5swbj11ov" path="res://assets/scenes/player_bullet.gd" id="1_nk7d5"]
+[ext_resource type="Texture2D" uid="uid://cvdm4nh6njgam" path="res://assets/sprites/enemy_bullet.png" id="2_nk7d5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2aeh2"]
+radius = 13.0
+
+[node name="EnemyBullet" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 17
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_nk7d5")
+target_group = "player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2aeh2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_nk7d5")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_destroy_timer_timeout"]
