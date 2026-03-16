@@ -4,10 +4,15 @@ extends CharacterBody2D
 @export var bullet_speed=500.0
 
 @export var bullet: PackedScene
+
+@export var max_hp = 100.0
+var cur_hp
+var can_take_dmg = true
 var can_shoot=true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	cur_hp = max_hp
+	GameManager.set_hpbar(cur_hp)
 
 func shoot():
 	var newb = bullet.instantiate()
@@ -24,7 +29,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	else:
 		$Pivot/PlayerLegs.animation="idle"
 		velocity = Vector2.ZERO
-		
+
+func take_damage(amt):
+	if !can_take_dmg:return
+	cur_hp -= amt
+	GameManager.set_hpbar(cur_hp)
+	$Pivot.modulate = Color.RED
+	can_take_dmg=false
+	await get_tree().create_timer(0.2).timeout
+	$Pivot.modulate = Color.WHITE
+	can_take_dmg=true
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

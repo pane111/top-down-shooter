@@ -22,7 +22,12 @@ func _ready() -> void:
 		pstats.stats["version"]="A"
 	else:
 		pstats.stats["version"]="B"
-	
+
+func set_hpbar(val):
+	if $HUD/HpBar.value > val:
+		$HUD/HurtFlash.play("RESET")
+		$HUD/HurtFlash.play("flash")
+	$HUD/HpBar.value = val
 
 func calculate_accuracy():
 	var totalshots = hits+misses

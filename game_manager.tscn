@@ -1,8 +1,95 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4a7tsd1oahat"]
+[gd_scene load_steps=10 format=3 uid="uid://c4a7tsd1oahat"]
 
 [ext_resource type="Script" uid="uid://b1t4rvfe3a884" path="res://game_manager.gd" id="1_70yv6"]
 [ext_resource type="PackedScene" uid="uid://dwum1vnu6sp4k" path="res://assets/scenes/test_level.tscn" id="2_smx3j"]
+[ext_resource type="Texture2D" uid="uid://bnyoa55woibc5" path="res://assets/sprites/hp_bar_under.png" id="3_d5upp"]
+[ext_resource type="Texture2D" uid="uid://04wkf1mhv0rn" path="res://assets/sprites/hp_bar.png" id="4_vk86k"]
+[ext_resource type="FontFile" uid="uid://otbxy3aeoqbi" path="res://assets/Jacquard24-Regular.ttf" id="5_vk86k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vk86k"]
+bg_color = Color(0.7254902, 0, 0, 0.18039216)
+
+[sub_resource type="Animation" id="Animation_vk86k"]
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_shwjl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eakoi"]
+_data = {
+&"RESET": SubResource("Animation_shwjl"),
+&"flash": SubResource("Animation_vk86k")
+}
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_70yv6")
 start_scene = ExtResource("2_smx3j")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HurtPanel" type="Panel" parent="HUD"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vk86k")
+
+[node name="HpBar" type="TextureProgressBar" parent="HUD"]
+anchors_preset = -1
+anchor_right = 0.109375
+anchor_bottom = 0.041666668
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 524.0
+offset_bottom = 32.0
+value = 50.0
+texture_under = ExtResource("3_d5upp")
+texture_progress = ExtResource("4_vk86k")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="HUD/HpBar"]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -14.0
+offset_right = 66.0
+offset_bottom = 19.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("5_vk86k")
+theme_override_font_sizes/font_size = 32
+text = "Life"
+
+[node name="HurtFlash" type="AnimationPlayer" parent="HUD"]
+libraries = {
+&"": SubResource("AnimationLibrary_eakoi")
+}

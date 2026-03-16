@@ -6,10 +6,23 @@ extends CharacterBody2D
 @export var sust_dist=100.0
 @export var sway=0.0
 @export var bullet: PackedScene
+var cur_hp
 var player
 var can_shoot=true
 var can_move=true
 var rng = RandomNumberGenerator.new()
+
+func _ready() -> void:
+	cur_hp = max_hp
+
+func take_damage(amt):
+	cur_hp-=amt
+	$Pivot.modulate = Color.RED
+	if cur_hp <= 0:
+		queue_free()
+	await get_tree().create_timer(0.2).timeout
+	$Pivot.modulate = Color.WHITE
+	
 
 func _physics_process(delta: float) -> void:
 	if player==null:return
