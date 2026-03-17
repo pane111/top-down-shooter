@@ -15,6 +15,7 @@ func _ready() -> void:
 	cur_hp = max_hp
 	GameManager.set_hpbar(cur_hp)
 	GameManager.player = self
+	GameManager.set_hud(true)
 
 func shoot():
 	var newb = bullet.instantiate()
@@ -38,7 +39,9 @@ func take_damage(amt):
 	cur_hp -= amt
 	GameManager.set_hpbar(cur_hp)
 	if cur_hp <= 0:
+		GameManager.set_hud(false)
 		GameManager.load_new_scene(GameManager.last_loaded)
+		
 	$Pivot.modulate = Color.RED
 	can_take_dmg=false
 	await get_tree().create_timer(0.2).timeout

@@ -23,6 +23,8 @@ var rng
 signal updated_difficulty
 var player
 
+var barricade
+
 func move_cam_to_node(nd,dur):
 	var cam = get_viewport().get_camera_2d()
 	var pss = cam.position_smoothing_speed
@@ -34,6 +36,9 @@ func move_cam_to_node(nd,dur):
 	cam.position_smoothing_speed=pss
 	cam.global_position=player.global_position
 	player.can_move=true
+
+func remove_barrier():
+	barricade.queue_free()
 
 func _ready() -> void:
 	rng = RandomNumberGenerator.new()
@@ -93,6 +98,11 @@ func send_pstats():
 		push_error("Error occurred in the HTTP request")
 	else:
 		print_debug("Sent!")
+func set_hud(val):
+	if val:
+		$HUD.show()
+	else:
+		$HUD.hide()
 # Called when the HTTP request is completed.
 func _http_request_completed(_result, response_code, headers, body):
 	var json = JSON.new()

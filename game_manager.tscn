@@ -52,6 +52,7 @@ script = ExtResource("1_70yv6")
 start_scene = ExtResource("2_smx3j")
 
 [node name="HUD" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="HurtPanel" type="Panel" parent="HUD"]
 modulate = Color(1, 1, 1, 0)
@@ -103,7 +104,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_eakoi")
 }
 
-[node name="Label2" type="Label" parent="HUD"]
+[node name="AreaLabel" type="Label" parent="HUD"]
+visible = false
 anchors_preset = -1
 anchor_left = 0.7803819
 anchor_top = 0.015432099

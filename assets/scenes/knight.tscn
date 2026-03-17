@@ -122,7 +122,7 @@ animations = [{
 size = Vector2(32, 48)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rt4tg"]
-radius = 244.01845
+radius = 203.0
 
 [node name="Knight" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
