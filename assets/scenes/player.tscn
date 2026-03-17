@@ -113,6 +113,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 z_index = 1
+collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_s027a")
 move_speed = 150.0

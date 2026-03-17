@@ -2,6 +2,12 @@ extends Node
 
 @export var start_scene: PackedScene
 
+@export var global_movespeed_multiplier = 1.0
+@export var global_bulletspeed_multiplier = 1.0
+@export var global_sway = 0.0
+@export var global_drop_multiplier = 1.0
+@export var global_cooldown_multiplier = 1.0
+
 var cur_scene
 
 var pstats
@@ -12,6 +18,8 @@ var misses=0
 
 var adaptive_difficulty=false
 var rng
+
+signal updated_difficulty
 
 func _ready() -> void:
 	rng = RandomNumberGenerator.new()
@@ -28,6 +36,15 @@ func set_hpbar(val):
 		$HUD/HurtFlash.play("RESET")
 		$HUD/HurtFlash.play("flash")
 	$HUD/HpBar.value = val
+
+func set_difficulty(ms,bs,sway,drop,cd):
+	global_bulletspeed_multiplier = bs
+	global_movespeed_multiplier = ms
+	global_sway = sway
+	global_drop_multiplier = drop
+	global_cooldown_multiplier = cd
+	updated_difficulty.emit()
+
 
 func calculate_accuracy():
 	var totalshots = hits+misses

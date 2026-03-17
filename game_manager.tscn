@@ -9,6 +9,21 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vk86k"]
 bg_color = Color(0.7254902, 0, 0, 0.18039216)
 
+[sub_resource type="Animation" id="Animation_shwjl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_vk86k"]
 resource_name = "flash"
 length = 0.2
@@ -23,21 +38,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_shwjl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HurtPanel:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eakoi"]
@@ -93,3 +93,20 @@ text = "Life"
 libraries = {
 &"": SubResource("AnimationLibrary_eakoi")
 }
+
+[node name="Label2" type="Label" parent="HUD"]
+anchors_preset = -1
+anchor_left = 0.7803819
+anchor_top = 0.015432099
+anchor_right = 0.9869792
+anchor_bottom = 0.06635802
+grow_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("5_vk86k")
+theme_override_font_sizes/font_size = 32
+text = "The Arrow's Hideout"
+horizontal_alignment = 2
+metadata/_edit_use_anchors_ = true

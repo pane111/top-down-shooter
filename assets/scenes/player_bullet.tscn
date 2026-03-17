@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://de35kuq146km7" path="res://assets/sprites/player_bullet.png" id="1_2ss33"]
 [ext_resource type="Script" uid="uid://d3jy5swbj11ov" path="res://assets/scenes/player_bullet.gd" id="1_gxrf7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2aeh2"]
-radius = 13.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxrf7"]
+size = Vector2(13, 12)
 
 [node name="PlayerBullet" type="RigidBody2D"]
 collision_layer = 2
@@ -18,7 +18,8 @@ is_pb = true
 damage = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_2aeh2")
+position = Vector2(6.5, 0)
+shape = SubResource("RectangleShape2D_gxrf7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_2ss33")

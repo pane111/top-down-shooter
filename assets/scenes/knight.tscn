@@ -131,7 +131,6 @@ collision_layer = 4
 collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_3pbmc")
-move_speed = 175.0
 sust_dist = 5.0
 metadata/_edit_group_ = true
 
