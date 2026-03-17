@@ -21,8 +21,8 @@ GameManager="*res://game_manager.tscn"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
-window/stretch/scale_mode="integer"
 
 [global_group]
 
