@@ -9,6 +9,7 @@ extends Node
 @export var global_cooldown_multiplier = 1.0
 
 var cur_scene
+var last_loaded
 
 var pstats
 var saved_data = false
@@ -20,6 +21,19 @@ var adaptive_difficulty=false
 var rng
 
 signal updated_difficulty
+var player
+
+func move_cam_to_node(nd,dur):
+	var cam = get_viewport().get_camera_2d()
+	var pss = cam.position_smoothing_speed
+	player.can_move=false
+	player.velocity = Vector2.ZERO
+	cam.position_smoothing_speed=1.5
+	cam.global_position = nd.global_position
+	await get_tree().create_timer(dur).timeout
+	cam.position_smoothing_speed=pss
+	cam.global_position=player.global_position
+	player.can_move=true
 
 func _ready() -> void:
 	rng = RandomNumberGenerator.new()
@@ -95,6 +109,7 @@ func _http_request_completed(_result, response_code, headers, body):
 		print(header)
 
 func load_new_scene(newSc):
+	last_loaded=newSc
 	var ns = newSc.instantiate()
 	if cur_scene != null:
 		cur_scene.queue_free()

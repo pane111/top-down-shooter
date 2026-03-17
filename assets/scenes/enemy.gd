@@ -28,6 +28,8 @@ func _ready() -> void:
 		GameManager.updated_difficulty.connect(apply_difficulty)
 
 func take_damage(amt):
+	if player==null:
+		player = GameManager.player
 	cur_hp-=amt
 	$Pivot.modulate = Color.RED
 	if cur_hp <= 0:

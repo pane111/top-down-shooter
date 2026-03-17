@@ -112,7 +112,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-z_index = 1
+z_index = 2
 collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_s027a")
@@ -127,6 +127,7 @@ shape = SubResource("CircleShape2D_s027a")
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="PlayerTorso" type="AnimatedSprite2D" parent="Pivot"]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_0gfpk")
 animation = &"shoot"
 autoplay = "idle"

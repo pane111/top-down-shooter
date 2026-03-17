@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ws4vf8hghlqg"]
+
+[ext_resource type="Script" uid="uid://u3n38ibdldj1" path="res://scarecrow.gd" id="1_3qqyg"]
+[ext_resource type="Texture2D" uid="uid://104x65nrscwr" path="res://assets/sprites/scarecrow.png" id="2_bvecu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_roes2"]
+
+[node name="Scarecrow" type="StaticBody2D" groups=["enemy"]]
+collision_layer = 4
+collision_mask = 17
+script = ExtResource("1_3qqyg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_roes2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_bvecu")

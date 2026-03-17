@@ -9,10 +9,12 @@ extends CharacterBody2D
 var cur_hp
 var can_take_dmg = true
 var can_shoot=true
+var can_move=true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	cur_hp = max_hp
 	GameManager.set_hpbar(cur_hp)
+	GameManager.player = self
 
 func shoot():
 	var newb = bullet.instantiate()
@@ -22,6 +24,7 @@ func shoot():
 	newb.linear_velocity = Vector2.from_angle($Pivot.global_rotation).normalized() * bullet_speed
 
 func _unhandled_input(event: InputEvent) -> void:
+	if !can_move: return
 	var inputdir = Input.get_vector("mleft","mright","mup","mdown")
 	if inputdir.length() > 0:
 		$Pivot/PlayerLegs.animation="move"
@@ -34,6 +37,8 @@ func take_damage(amt):
 	if !can_take_dmg:return
 	cur_hp -= amt
 	GameManager.set_hpbar(cur_hp)
+	if cur_hp <= 0:
+		GameManager.load_new_scene(GameManager.last_loaded)
 	$Pivot.modulate = Color.RED
 	can_take_dmg=false
 	await get_tree().create_timer(0.2).timeout
