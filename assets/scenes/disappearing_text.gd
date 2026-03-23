@@ -8,6 +8,7 @@ extends Label
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if appear_on_ready:
+		await get_tree().create_timer(2).timeout
 		appear()
 	else:
 		hide()

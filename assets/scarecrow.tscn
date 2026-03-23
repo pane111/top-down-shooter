@@ -1,17 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://ws4vf8hghlqg"]
+[gd_scene load_steps=8 format=3 uid="uid://ws4vf8hghlqg"]
 
 [ext_resource type="Script" uid="uid://u3n38ibdldj1" path="res://scarecrow.gd" id="1_3qqyg"]
+[ext_resource type="PackedScene" uid="uid://hqpbpquuhl0n" path="res://assets/scenes/red_potion.tscn" id="2_45hgs"]
 [ext_resource type="Texture2D" uid="uid://104x65nrscwr" path="res://assets/sprites/scarecrow.png" id="2_bvecu"]
+[ext_resource type="Texture2D" uid="uid://bb04isf8tb5cc" path="res://assets/sprites/star.png" id="3_roes2"]
+[ext_resource type="Material" uid="uid://b8l6ielt4ver5" path="res://assets/hitparticle.tres" id="4_c4g4o"]
+[ext_resource type="Texture2D" uid="uid://de7kau2q5qd5y" path="res://assets/sprites/hit.png" id="4_yvwfg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_roes2"]
 
 [node name="Scarecrow" type="StaticBody2D" groups=["enemy"]]
-collision_layer = 4
+collision_layer = 20
 collision_mask = 17
 script = ExtResource("1_3qqyg")
+dropped_item = ExtResource("2_45hgs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_roes2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_bvecu")
+
+[node name="HitParticle" type="GPUParticles2D" parent="."]
+z_index = 11
+emitting = false
+texture = ExtResource("3_roes2")
+lifetime = 0.09999999999999999
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("4_c4g4o")
+
+[node name="Hit" type="Sprite2D" parent="."]
+visible = false
+z_index = 11
+texture = ExtResource("4_yvwfg")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://csyl32d7v0dgg"]
+
+[ext_resource type="Script" uid="uid://ce1iybbjnflcf" path="res://assets/scenes/bomb_pickup.gd" id="1_ey7on"]
+[ext_resource type="Shader" uid="uid://prad5y4lp0jt" path="res://assets/pulsing.gdshader" id="2_ldie2"]
+[ext_resource type="Texture2D" uid="uid://hgmbbo7bsxla" path="res://assets/sprites/shield.png" id="3_ey7on"]
+[ext_resource type="Texture2D" uid="uid://byrpbbiaewfuo" path="res://assets/sprites/whitestar.png" id="4_ttc31"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bf6br"]
+radius = 14.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g36um"]
+shader = ExtResource("2_ldie2")
+shader_parameter/scale_offset = 0.1
+shader_parameter/speed = 6.0
+
+[sub_resource type="Curve" id="Curve_bf6br"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.49624062, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.019342422), -2.192371, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g36um"]
+curve = SubResource("Curve_bf6br")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hudq8"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 26.28
+gravity = Vector3(0, -60, 0)
+scale_curve = SubResource("CurveTexture_g36um")
+
+[node name="Shield" type="Area2D" groups=["pickups"]]
+collision_layer = 0
+script = ExtResource("1_ey7on")
+buffname = "shield"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bf6br")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 11
+material = SubResource("ShaderMaterial_g36um")
+texture = ExtResource("3_ey7on")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 11
+amount = 3
+texture = ExtResource("4_ttc31")
+process_material = SubResource("ParticleProcessMaterial_hudq8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -14,7 +14,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
 func _on_exp_button_pressed() -> void:
 	GameManager.export_pstats()
 
@@ -26,8 +25,14 @@ func _on_send_button_pressed() -> void:
 
 func _on_start_btn_pressed() -> void:
 	GameManager.start_game()
+	$VBoxContainer/StartBtn.disabled=true
+	await GameManager.transition
 	queue_free()
 
 
 func _on_accept_button_pressed() -> void:
 	$Disclaimer.hide()
+
+
+func _on_debug_check_toggled(toggled_on: bool) -> void:
+	GameManager.set_debug_mode(toggled_on)

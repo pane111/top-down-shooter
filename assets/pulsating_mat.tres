@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://60k7r485jl3b"]
+
+[ext_resource type="Shader" uid="uid://prad5y4lp0jt" path="res://assets/pulsing.gdshader" id="1_34c5j"]
+
+[resource]
+shader = ExtResource("1_34c5j")
+shader_parameter/scale_offset = 0.1
+shader_parameter/speed = 5.0

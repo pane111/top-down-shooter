@@ -1,8 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://conctwesvlbl"]
+[gd_scene load_steps=18 format=3 uid="uid://conctwesvlbl"]
 
+[ext_resource type="Script" uid="uid://ch80h4b6n7p87" path="res://assets/scenes/mage.gd" id="1_8fuj6"]
 [ext_resource type="Texture2D" uid="uid://byileodwiaihx" path="res://assets/sprites/mage.png" id="1_h4632"]
-[ext_resource type="Script" uid="uid://cnj6hnxffwi40" path="res://assets/scenes/enemy.gd" id="1_x2sey"]
 [ext_resource type="PackedScene" uid="uid://bn6fnd18851k2" path="res://assets/scenes/enemy_bullet.tscn" id="2_rt4tg"]
+[ext_resource type="Texture2D" uid="uid://bb04isf8tb5cc" path="res://assets/sprites/star.png" id="4_itm4q"]
+[ext_resource type="Material" uid="uid://b8l6ielt4ver5" path="res://assets/hitparticle.tres" id="5_8fuj6"]
+[ext_resource type="Texture2D" uid="uid://de7kau2q5qd5y" path="res://assets/sprites/hit.png" id="5_ads6b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x2sey"]
 
@@ -28,7 +31,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_itm4q")
 }],
-"loop": true,
+"loop": false,
 "name": &"shoot",
 "speed": 1.0
 }]
@@ -80,14 +83,16 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_rt4tg"]
 radius = 244.01845
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fuj6"]
+radius = 1357.3268
+
 [node name="Mage" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 disable_mode = 1
 collision_layer = 4
 collision_mask = 17
 motion_mode = 1
-script = ExtResource("1_x2sey")
-move_speed = 200.0
+script = ExtResource("1_8fuj6")
 sust_dist = 200.0
 bullet = ExtResource("2_rt4tg")
 metadata/_edit_group_ = true
@@ -98,13 +103,12 @@ shape = SubResource("CircleShape2D_x2sey")
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Torso" type="AnimatedSprite2D" parent="Pivot"]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_ads6b")
 animation = &"shoot"
 autoplay = "idle"
-frame_progress = 0.2068585
 
 [node name="Legs" type="AnimatedSprite2D" parent="Pivot"]
-z_index = -1
 sprite_frames = SubResource("SpriteFrames_w734p")
 animation = &"move"
 autoplay = "idle"
@@ -115,9 +119,36 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionCircle"]
 shape = SubResource("CircleShape2D_rt4tg")
+debug_color = Color(0, 0.6, 0.69803923, 0.12156863)
 
 [node name="ShotCd" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
+[node name="HitParticle" type="GPUParticles2D" parent="."]
+z_index = 11
+emitting = false
+texture = ExtResource("4_itm4q")
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("5_8fuj6")
+
+[node name="Hit" type="Sprite2D" parent="."]
+visible = false
+z_index = 11
+texture = ExtResource("5_ads6b")
+
+[node name="MoveTimer" type="Timer" parent="."]
+
+[node name="AlertArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlertArea"]
+shape = SubResource("CircleShape2D_8fuj6")
+debug_color = Color(0.74509805, 0.4627451, 0, 0.09411765)
+
 [connection signal="body_entered" from="DetectionCircle" to="." method="_on_detection_circle_body_entered"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

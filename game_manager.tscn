@@ -1,14 +1,29 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4a7tsd1oahat"]
+[gd_scene load_steps=33 format=3 uid="uid://c4a7tsd1oahat"]
 
 [ext_resource type="Script" uid="uid://b1t4rvfe3a884" path="res://game_manager.gd" id="1_70yv6"]
-[ext_resource type="PackedScene" uid="uid://dwum1vnu6sp4k" path="res://assets/scenes/test_level.tscn" id="2_smx3j"]
+[ext_resource type="PackedScene" uid="uid://dwum1vnu6sp4k" path="res://assets/scenes/test_level.tscn" id="2_le433"]
 [ext_resource type="Texture2D" uid="uid://bnyoa55woibc5" path="res://assets/sprites/hp_bar_under.png" id="3_d5upp"]
+[ext_resource type="PackedScene" uid="uid://ep0hwdqia67y" path="res://assets/scenes/end_screen.tscn" id="3_gth8u"]
+[ext_resource type="PackedScene" uid="uid://fiil51ojq3o8" path="res://assets/scenes/title_screen.tscn" id="4_dq8jp"]
 [ext_resource type="Texture2D" uid="uid://04wkf1mhv0rn" path="res://assets/sprites/hp_bar.png" id="4_vk86k"]
+[ext_resource type="PackedScene" uid="uid://hqpbpquuhl0n" path="res://assets/scenes/red_potion.tscn" id="5_le433"]
 [ext_resource type="FontFile" uid="uid://otbxy3aeoqbi" path="res://assets/Jacquard24-Regular.ttf" id="5_vk86k"]
+[ext_resource type="PackedScene" uid="uid://esholybrpjhw" path="res://assets/scenes/bomb_pickup.tscn" id="6_2tadr"]
 [ext_resource type="Texture2D" uid="uid://qg14jgq8og55" path="res://assets/sprites/controls.png" id="6_shwjl"]
+[ext_resource type="PackedScene" uid="uid://cnsxsiwhd7fc3" path="res://assets/scenes/shoe_pickup.tscn" id="7_anra8"]
+[ext_resource type="Shader" uid="uid://d08mmcik3khr2" path="res://transition.gdshader" id="7_eakoi"]
+[ext_resource type="PackedScene" uid="uid://da88ewwxju380" path="res://assets/scenes/buff_bomb.tscn" id="7_tmn8n"]
+[ext_resource type="Texture2D" uid="uid://cowqqbplgkswu" path="res://assets/sprites/circle.png" id="8_8jrwq"]
+[ext_resource type="PackedScene" uid="uid://csyl32d7v0dgg" path="res://assets/scenes/shield_pickup.tscn" id="8_lx373"]
+[ext_resource type="PackedScene" uid="uid://c2h1hpubxdrtx" path="res://assets/scenes/buff_speed.tscn" id="9_f0lch"]
+[ext_resource type="Texture2D" uid="uid://dwuk7mkf4d213" path="res://assets/sprites/defeat.png" id="9_yawsv"]
+[ext_resource type="PackedScene" uid="uid://5idxkdou6aim" path="res://assets/scenes/buff_shield.tscn" id="11_s6dek"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vk86k"]
 bg_color = Color(0.7254902, 0, 0, 0.18039216)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_shwjl"]
+bg_color = Color(0, 1, 0, 0.18039216)
 
 [sub_resource type="Animation" id="Animation_shwjl"]
 length = 0.001
@@ -19,6 +34,18 @@ tracks/0/path = NodePath("HurtPanel:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HealPanel:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -41,15 +68,184 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_eakoi"]
+resource_name = "flash_heal"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealPanel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eakoi"]
 _data = {
 &"RESET": SubResource("Animation_shwjl"),
-&"flash": SubResource("Animation_vk86k")
+&"flash": SubResource("Animation_vk86k"),
+&"flash_heal": SubResource("Animation_eakoi")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8jrwq"]
+shader = ExtResource("7_eakoi")
+shader_parameter/mask = ExtResource("8_8jrwq")
+shader_parameter/scale = 0.0
+shader_parameter/scale_factor = 10.0
+
+[sub_resource type="Animation" id="Animation_gth8u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition:material:shader_parameter/scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_8jrwq"]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition:material:shader_parameter/scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_dq8jp"]
+resource_name = "fade_to_transp"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Transition:material:shader_parameter/scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yawsv"]
+_data = {
+&"RESET": SubResource("Animation_gth8u"),
+&"fade_to_black": SubResource("Animation_8jrwq"),
+&"fade_to_transp": SubResource("Animation_dq8jp")
+}
+
+[sub_resource type="Animation" id="Animation_le433"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TransitionLayer/Defeat:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(468, -115)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TransitionLayer/Defeat:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TransitionLayer/Defeat:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yawsv"]
+resource_name = "loss"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../TransitionLayer/Defeat:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2.1333334, 2.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(468, -115), Vector2(468, 287)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TransitionLayer/Defeat:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3.6, 5.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(10, 10)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TransitionLayer/Defeat:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4.1, 5.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2tadr"]
+_data = {
+&"RESET": SubResource("Animation_le433"),
+&"loss": SubResource("Animation_yawsv")
 }
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_70yv6")
-start_scene = ExtResource("2_smx3j")
+start_scene = ExtResource("2_le433")
+end_scene = ExtResource("3_gth8u")
+title_screen = ExtResource("4_dq8jp")
+droppable_items = Array[PackedScene]([ExtResource("5_le433"), ExtResource("6_2tadr"), ExtResource("7_anra8"), ExtResource("8_lx373")])
+buffs = Dictionary[String, PackedScene]({
+"bomb": ExtResource("7_tmn8n"),
+"shield": ExtResource("11_s6dek"),
+"speed": ExtResource("9_f0lch")
+})
+adaptive_difficulty = true
 
 [node name="HUD" type="CanvasLayer" parent="."]
 visible = false
@@ -64,6 +260,16 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_vk86k")
 
+[node name="HealPanel" type="Panel" parent="HUD"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_shwjl")
+
 [node name="HpBar" type="TextureProgressBar" parent="HUD"]
 anchors_preset = -1
 anchor_right = 0.109375
@@ -72,7 +278,6 @@ offset_left = 10.0
 offset_top = 11.0
 offset_right = 524.0
 offset_bottom = 32.0
-value = 50.0
 texture_under = ExtResource("3_d5upp")
 texture_progress = ExtResource("4_vk86k")
 metadata/_edit_use_anchors_ = true
@@ -105,7 +310,6 @@ libraries = {
 }
 
 [node name="AreaLabel" type="Label" parent="HUD"]
-visible = false
 anchors_preset = -1
 anchor_left = 0.7803819
 anchor_top = 0.015432099
@@ -118,6 +322,86 @@ theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("5_vk86k")
 theme_override_font_sizes/font_size = 32
-text = "The Arrow's Hideout"
 horizontal_alignment = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="Debug" type="Control" parent="HUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Debug"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DiffSlider" type="HSlider" parent="HUD/Debug/VBoxContainer"]
+layout_mode = 2
+max_value = 3.0
+step = 0.1
+value = 1.0
+
+[node name="DiffLabel" type="Label" parent="HUD/Debug/VBoxContainer"]
+layout_mode = 2
+text = "(DEBUG) Current difficulty"
+
+[node name="Buffs" type="VBoxContainer" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -190.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TransitionLayer" type="CanvasLayer" parent="."]
+layer = 99
+
+[node name="Transition" type="ColorRect" parent="TransitionLayer"]
+top_level = true
+material = SubResource("ShaderMaterial_8jrwq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TransitionAnim" type="AnimationPlayer" parent="TransitionLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_yawsv")
+}
+
+[node name="Defeat" type="TextureRect" parent="TransitionLayer"]
+top_level = true
+z_index = 10
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -439.0
+offset_right = 108.0
+offset_bottom = -364.99994
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(108, 37)
+texture = ExtResource("9_yawsv")
+
+[node name="LossAnim" type="AnimationPlayer" parent="TransitionLayer"]
+root_node = NodePath("../../HUD")
+libraries = {
+&"": SubResource("AnimationLibrary_2tadr")
+}
+
+[connection signal="kill" from="." to="." method="_on_kill"]
+[connection signal="drag_ended" from="HUD/Debug/VBoxContainer/DiffSlider" to="." method="_on_diff_slider_drag_ended"]

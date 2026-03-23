@@ -26,7 +26,6 @@ shape = SubResource("RectangleShape2D_gxrf7")
 texture = ExtResource("1_2ss33")
 
 [node name="DestroyTimer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 autostart = true
 

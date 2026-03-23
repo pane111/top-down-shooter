@@ -1,8 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6toxquwc73mx"]
+[gd_scene load_steps=24 format=3 uid="uid://c6toxquwc73mx"]
 
 [ext_resource type="Script" uid="uid://xlfbkbhyitkj" path="res://assets/scenes/knight.gd" id="1_3pbmc"]
 [ext_resource type="Texture2D" uid="uid://cdd2jd2sxjcbq" path="res://assets/sprites/knight.png" id="3_q2rsb"]
 [ext_resource type="Texture2D" uid="uid://byileodwiaihx" path="res://assets/sprites/mage.png" id="3_u84ur"]
+[ext_resource type="Texture2D" uid="uid://bb04isf8tb5cc" path="res://assets/sprites/star.png" id="4_q2rsb"]
+[ext_resource type="Material" uid="uid://b8l6ielt4ver5" path="res://assets/hitparticle.tres" id="5_kjsse"]
+[ext_resource type="Texture2D" uid="uid://de7kau2q5qd5y" path="res://assets/sprites/hit.png" id="5_u84ur"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x2sey"]
 
@@ -124,6 +127,9 @@ size = Vector2(32, 48)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rt4tg"]
 radius = 203.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjsse"]
+radius = 584.0899
+
 [node name="Knight" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 disable_mode = 1
@@ -131,7 +137,10 @@ collision_layer = 4
 collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_3pbmc")
-sust_dist = 5.0
+max_hp = 5.0
+sust_dist = 36.0
+shoot_while_moving = false
+sust_dist_fixed = true
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -140,17 +149,17 @@ shape = SubResource("CircleShape2D_x2sey")
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Torso" type="AnimatedSprite2D" parent="Pivot"]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_4k5vm")
 animation = &"shoot"
 autoplay = "idle"
 frame_progress = 0.64261025
 
 [node name="Legs" type="AnimatedSprite2D" parent="Pivot"]
-z_index = -1
 sprite_frames = SubResource("SpriteFrames_uvkl0")
 animation = &"move"
 autoplay = "idle"
-frame_progress = 0.18336688
+frame_progress = 0.44811258
 
 [node name="HitArea" type="Area2D" parent="Pivot"]
 collision_layer = 0
@@ -164,8 +173,35 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionCircle"]
 shape = SubResource("CircleShape2D_rt4tg")
+debug_color = Color(0, 0.6, 0.69803923, 0.06666667)
 
 [node name="ShotCd" type="Timer" parent="."]
 one_shot = true
+
+[node name="HitParticle" type="GPUParticles2D" parent="."]
+z_index = 11
+emitting = false
+texture = ExtResource("4_q2rsb")
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("5_kjsse")
+
+[node name="Hit" type="Sprite2D" parent="."]
+visible = false
+z_index = 11
+texture = ExtResource("5_u84ur")
+
+[node name="MoveTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AlertArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlertArea"]
+shape = SubResource("CircleShape2D_kjsse")
+debug_color = Color(0.74509805, 0.4627451, 0, 0.07058824)
 
 [connection signal="body_entered" from="DetectionCircle" to="." method="_on_detection_circle_body_entered"]

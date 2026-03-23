@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://d3jy5swbj11ov" path="res://assets/scenes/player_bullet.gd" id="1_nk7d5"]
 [ext_resource type="Texture2D" uid="uid://cvdm4nh6njgam" path="res://assets/sprites/enemy_bullet.png" id="2_nk7d5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_2aeh2"]
-radius = 13.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nk7d5"]
+size = Vector2(14, 10)
 
 [node name="EnemyBullet" type="RigidBody2D"]
 z_index = 2
@@ -15,9 +15,11 @@ contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_nk7d5")
 target_group = "player"
+damage = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_2aeh2")
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_nk7d5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_nk7d5")

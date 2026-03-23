@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://da88ewwxju380"]
+
+[ext_resource type="Texture2D" uid="uid://koxlxb1owrby" path="res://assets/sprites/buff_underlay.png" id="1_m072v"]
+[ext_resource type="Texture2D" uid="uid://c32atqyid5ui6" path="res://assets/sprites/buff_overlay.png" id="2_5ebv7"]
+[ext_resource type="Script" uid="uid://cplrkcpvi8m41" path="res://assets/scenes/buff_bomb.gd" id="3_m072v"]
+[ext_resource type="Texture2D" uid="uid://dhcnuj0yh07t5" path="res://assets/sprites/bomb_pickup.png" id="4_5ebv7"]
+
+[node name="BombBuff" type="TextureProgressBar"]
+self_modulate = Color(0.9999998, 0.4178355, 0.006679778, 1)
+size_flags_horizontal = 8
+size_flags_vertical = 8
+value = 100.0
+texture_under = ExtResource("1_m072v")
+texture_progress = ExtResource("2_5ebv7")
+script = ExtResource("3_m072v")
+duration = 20.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -23.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+text = "EXPLODING BOLTS"
+horizontal_alignment = 2
+
+[node name="BTimer" type="Timer" parent="."]
+wait_time = 30.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.039267015
+anchor_top = -0.9583333
+anchor_right = 0.12827225
+anchor_bottom = 1.7083334
+texture = ExtResource("4_5ebv7")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="BTimer" to="." method="_on_b_timer_timeout"]

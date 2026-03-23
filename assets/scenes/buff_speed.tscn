@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2h1hpubxdrtx"]
+
+[ext_resource type="Texture2D" uid="uid://koxlxb1owrby" path="res://assets/sprites/buff_underlay.png" id="1_cfi71"]
+[ext_resource type="Texture2D" uid="uid://c32atqyid5ui6" path="res://assets/sprites/buff_overlay.png" id="2_iyc3j"]
+[ext_resource type="Script" uid="uid://eg8ettdvsb8n" path="res://assets/scenes/buff_speed.gd" id="3_cfi71"]
+[ext_resource type="Texture2D" uid="uid://solrewsqjf8" path="res://assets/sprites/shoes.png" id="4_iyc3j"]
+
+[node name="SpeedBuff" type="TextureProgressBar"]
+self_modulate = Color(0.32876235, 0.6301929, 1, 1)
+size_flags_horizontal = 8
+size_flags_vertical = 8
+value = 100.0
+texture_under = ExtResource("1_cfi71")
+texture_progress = ExtResource("2_iyc3j")
+script = ExtResource("3_cfi71")
+duration = 10.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -23.0
+offset_bottom = 10.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/outline_size = 6
+text = "SUPERSPEED"
+horizontal_alignment = 2
+
+[node name="BTimer" type="Timer" parent="."]
+wait_time = 30.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.039267015
+anchor_top = -0.9583333
+anchor_right = 0.12827225
+anchor_bottom = 1.7083334
+texture = ExtResource("4_iyc3j")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="BTimer" to="." method="_on_b_timer_timeout"]

@@ -10,5 +10,10 @@ extends Resource
 	"hits": 0,
 	"accuracy": 0,
 	"score": 0,
-	"difficulty": 0
+	"difficulty": 0,
+	"kills": 0,
+	"potions_used": 0,
+	"damage_taken": 0,
+	"consecutive_deaths": 0,
+	"time_alive": 0.0,
 }

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://byaqfnm0p00h3"]
+
+[ext_resource type="Texture2D" uid="uid://cnhphxh7cmpnw" path="res://assets/sprites/red_arrow.png" id="1_l61nx"]
+[ext_resource type="Script" uid="uid://dtijdfej37ewi" path="res://assets/scenes/load_zone.gd" id="1_sjisi"]
+[ext_resource type="Material" uid="uid://60k7r485jl3b" path="res://assets/pulsating_mat.tres" id="2_gy68p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ku1v3"]
+
+[node name="LoadZone" type="Area2D"]
+collision_layer = 0
+script = ExtResource("1_sjisi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ku1v3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 50
+material = ExtResource("2_gy68p")
+rotation = -3.1415927
+texture = ExtResource("1_l61nx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

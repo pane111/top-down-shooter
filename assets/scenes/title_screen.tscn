@@ -48,7 +48,12 @@ text = "Send Player Data"
 layout_mode = 2
 text = "Start Game"
 
+[node name="DebugCheck" type="CheckButton" parent="VBoxContainer"]
+layout_mode = 2
+text = "Debug Mode"
+
 [node name="Disclaimer" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,4 +95,5 @@ text = "I accept"
 [connection signal="pressed" from="VBoxContainer/ExpButton" to="." method="_on_exp_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SendButton" to="." method="_on_send_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/StartBtn" to="." method="_on_start_btn_pressed"]
+[connection signal="toggled" from="VBoxContainer/DebugCheck" to="." method="_on_debug_check_toggled"]
 [connection signal="pressed" from="Disclaimer/VBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]
