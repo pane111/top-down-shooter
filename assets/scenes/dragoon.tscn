@@ -1,0 +1,233 @@
+[gd_scene load_steps=26 format=3 uid="uid://c7goupk53s6d4"]
+
+[ext_resource type="Script" uid="uid://botkqexyfgkd7" path="res://assets/scenes/dragoon.gd" id="1_wwku2"]
+[ext_resource type="Texture2D" uid="uid://dylyxdq4uxood" path="res://assets/sprites/dragoon.png" id="2_h6mdp"]
+[ext_resource type="Texture2D" uid="uid://byileodwiaihx" path="res://assets/sprites/mage.png" id="3_8xsrq"]
+[ext_resource type="Texture2D" uid="uid://bb04isf8tb5cc" path="res://assets/sprites/star.png" id="4_7eei2"]
+[ext_resource type="Material" uid="uid://b8l6ielt4ver5" path="res://assets/hitparticle.tres" id="5_uxqar"]
+[ext_resource type="Texture2D" uid="uid://de7kau2q5qd5y" path="res://assets/sprites/hit.png" id="6_ggxjn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x2sey"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xsrq"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(172, 0, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7eei2"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(258, 0, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxqar"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(344, 0, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggxjn"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(0, 0, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxm0t"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(86, 0, 86, 86)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bv7l0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xsrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7eei2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxqar")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggxjn")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxm0t")
+}],
+"loop": true,
+"name": &"windup",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fuj6"]
+atlas = ExtResource("3_8xsrq")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkk7t"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(0, 86, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3nak"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(86, 86, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80xoo"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(172, 86, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u16oh"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(258, 86, 86, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftrsf"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(344, 86, 86, 86)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iv422"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fuj6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkk7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3nak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80xoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u16oh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftrsf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u16oh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80xoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3nak")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66sc7"]
+size = Vector2(32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwku2"]
+atlas = ExtResource("2_h6mdp")
+region = Rect2(86, 0, 86, 86)
+
+[sub_resource type="Gradient" id="Gradient_h6mdp"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rt4tg"]
+radius = 203.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kjsse"]
+radius = 584.0899
+
+[node name="Dragoon" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+disable_mode = 1
+collision_layer = 4
+collision_mask = 17
+motion_mode = 1
+script = ExtResource("1_wwku2")
+damage = 10.0
+dash_force = 350.0
+max_hp = 5.0
+sust_dist = 150.0
+stop_moving = false
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x2sey")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Torso" type="AnimatedSprite2D" parent="Pivot"]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_bv7l0")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Legs" type="AnimatedSprite2D" parent="Pivot"]
+sprite_frames = SubResource("SpriteFrames_iv422")
+animation = &"move"
+autoplay = "idle"
+frame_progress = 0.4415178
+
+[node name="HitArea" type="Area2D" parent="Pivot"]
+collision_layer = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/HitArea"]
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_66sc7")
+
+[node name="Afterimage" type="CPUParticles2D" parent="Pivot"]
+emitting = false
+texture = SubResource("AtlasTexture_wwku2")
+lifetime = 0.2
+local_coords = true
+direction = Vector2(-1, 0)
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+color = Color(0.3515629, 0.3515629, 0.35156286, 0.39607844)
+color_ramp = SubResource("Gradient_h6mdp")
+
+[node name="DetectionCircle" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionCircle"]
+shape = SubResource("CircleShape2D_rt4tg")
+debug_color = Color(0, 0.6, 0.69803923, 0.06666667)
+
+[node name="ShotCd" type="Timer" parent="."]
+one_shot = true
+
+[node name="HitParticle" type="GPUParticles2D" parent="."]
+z_index = 11
+emitting = false
+texture = ExtResource("4_7eei2")
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = ExtResource("5_uxqar")
+
+[node name="Hit" type="Sprite2D" parent="."]
+visible = false
+z_index = 11
+texture = ExtResource("6_ggxjn")
+
+[node name="MoveTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AlertArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlertArea"]
+shape = SubResource("CircleShape2D_kjsse")
+debug_color = Color(0.74509805, 0.4627451, 0, 0.07058824)
+
+[connection signal="body_entered" from="Pivot/HitArea" to="." method="_on_hit_area_body_entered"]
+[connection signal="body_entered" from="DetectionCircle" to="." method="_on_detection_circle_body_entered"]

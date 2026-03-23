@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dwum1vnu6sp4k"]
+[gd_scene load_steps=24 format=4 uid="uid://dwum1vnu6sp4k"]
 
 [ext_resource type="PackedScene" uid="uid://bh54653j4ffmj" path="res://assets/scenes/player.tscn" id="1_fk0pe"]
 [ext_resource type="PackedScene" uid="uid://c6toxquwc73mx" path="res://assets/scenes/knight.tscn" id="3_5qmb5"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://byrpbbiaewfuo" path="res://assets/sprites/whitestar.png" id="17_c5fx7"]
 [ext_resource type="Texture2D" uid="uid://bonf3go330qvw" path="res://assets/sprites/small_circle.png" id="18_axlv6"]
 [ext_resource type="Script" uid="uid://wqjiumihv27f" path="res://assets/scenes/exp_particle.gd" id="19_bnpap"]
+[ext_resource type="PackedScene" uid="uid://bxyoysum8ewcc" path="res://assets/scenes/damage_field.tscn" id="20_axlv6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rejlm"]
 shader = ExtResource("5_8smro")
@@ -291,6 +292,9 @@ scale_amount_min = 0.7
 scale_amount_max = 1.3
 color_ramp = SubResource("Gradient_aqkmp")
 script = ExtResource("19_bnpap")
+
+[node name="DamageField" parent="." instance=ExtResource("20_axlv6")]
+position = Vector2(-2016, 360)
 
 [connection signal="pressed" from="LoadZone/CanvasLayer/SkipButton" to="LoadZone" method="_load_next_scene"]
 [connection signal="finished" from="HitParticle/ExpParticle" to="HitParticle/ExpParticle" method="_on_finished"]

@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var base_drop_rate = 15
 @export var shoot_while_moving = true
 @export var sust_dist_fixed=false
+@export var stop_moving=true
 var drop_rate
 var move_speed
 var bullet_speed
@@ -78,7 +79,6 @@ func _physics_process(delta: float) -> void:
 	if player==null:return
 	if !active: return
 
-	# Reaction delay: don't act immediately after detecting the player
 	if !_has_reacted:
 		_reaction_timer += delta
 		var react_delay = GameManager.global_reaction_delay if GameManager.adaptive_difficulty else 0.0
@@ -117,7 +117,7 @@ func _physics_process(delta: float) -> void:
 				shoot()
 		$Pivot.look_at(player.global_position)
 	else:
-		velocity = Vector2.ZERO
+		if stop_moving: velocity = Vector2.ZERO
 
 
 
